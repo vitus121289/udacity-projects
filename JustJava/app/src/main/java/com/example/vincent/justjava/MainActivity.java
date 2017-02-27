@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
      * @return a string that contains the order summary.
      */
     private String createSummary(int price) {
-        String orderSummary = "Name: Vincent\n" + "Add whipped cream? " + hasWhippedCream + "\nPrice: $" + price + "\nThank you!";
+        String orderSummary = "Name: Vincent\n" +"Quantity: " + numberOfCoffees + "\nAdd whipped cream? " + hasWhippedCream + "\nPrice: $" + price + "\nThank you!";
         return orderSummary;
     }
 
