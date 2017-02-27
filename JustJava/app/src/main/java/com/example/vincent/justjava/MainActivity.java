@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -37,8 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method takes the order of the customer.
+     * Also checks if the either or both boxes are ticked.
+     * Also gets the customer's name.
      */
     public void placeOrder(View v) {
+
+        EditText customerNameEditText = (EditText) findViewById(R.id.customer_name_edit_text);
+        String customerName = customerNameEditText.getText().toString();
 
         CheckBox hasWhippedCream = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
         boolean addWhippedCream = hasWhippedCream.isChecked();
@@ -46,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         boolean addChocolate = hasChocolate.isChecked();
 
         int totalPrice = calculatePrice();
-        String orderSummary = createSummary(totalPrice, addWhippedCream, addChocolate);
+        String orderSummary = createSummary(totalPrice, addWhippedCream, addChocolate, customerName);
         displayOrderSummary(orderSummary);
     }
 
@@ -66,10 +72,11 @@ public class MainActivity extends AppCompatActivity {
      * @param price           total price of the purchase.
      * @param addWhippedCream a boolean parameter that tells if the customer wants whipped cream or not on their coffee.
      * @param addChocolate    a boolean parameter that tells if the customer wants chocolate or not on their coffee.
+     * @param customerName    name of the customer.
      * @return a string that contains the order summary.
      */
-    private String createSummary(int price, boolean addWhippedCream, boolean addChocolate) {
-        String orderSummary = "Name: Vincent\n" + "Add whipped cream? " + addWhippedCream + "\nAdd chocolate? " + addChocolate +
+    private String createSummary(int price, boolean addWhippedCream, boolean addChocolate, String customerName) {
+        String orderSummary = "Name: " + customerName + "\nAdd whipped cream? " + addWhippedCream + "\nAdd chocolate? " + addChocolate +
                 "\nQuantity: " + numberOfCoffees + "\nPrice: $" + price + "\nThank you!";
         return orderSummary;
     }
