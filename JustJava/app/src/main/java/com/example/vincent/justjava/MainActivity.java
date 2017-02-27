@@ -43,11 +43,14 @@ public class MainActivity extends AppCompatActivity {
      */
     public void placeOrder(View v) {
 
+        //Gets the name from the customer name text field and stores it in variable.
         EditText customerNameEditText = (EditText) findViewById(R.id.customer_name_edit_text);
         String customerName = customerNameEditText.getText().toString();
 
+        //Gets the status of the whipped cream checkbox if it has been ticked or not.
         CheckBox hasWhippedCream = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
         boolean addWhippedCream = hasWhippedCream.isChecked();
+        //Gets the status of the chocolate checkbox if it has been ticked or not
         CheckBox hasChocolate = (CheckBox) findViewById(R.id.chocolate_checkbox);
         boolean addChocolate = hasChocolate.isChecked();
 
