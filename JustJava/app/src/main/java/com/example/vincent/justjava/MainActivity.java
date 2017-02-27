@@ -12,7 +12,6 @@ import org.w3c.dom.Text;
 public class MainActivity extends AppCompatActivity {
 
     int numberOfCoffees = 0;
-    boolean hasWhippedCream = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +39,15 @@ public class MainActivity extends AppCompatActivity {
      * This method takes the order of the customer.
      */
     public void placeOrder(View v) {
-        int totalPrice = calculatePrice();
-        String orderSummary = createSummary(totalPrice);
-        displayOrderSummary(orderSummary);
-    }
 
-    /**
-     * This method determines if the checkbox for the whipped cream is clicked or not.
-     */
-    public void onCheckboxClicked(View v) {
-        hasWhippedCream = ((CheckBox) v).isChecked();
+        CheckBox hasWhippedCream = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
+        boolean addWhippedCream = hasWhippedCream.isChecked();
+        CheckBox hasChocolate = (CheckBox) findViewById(R.id.chocolate_checkbox);
+        boolean addChocolate = hasChocolate.isChecked();
+
+        int totalPrice = calculatePrice();
+        String orderSummary = createSummary(totalPrice, addWhippedCream, addChocolate);
+        displayOrderSummary(orderSummary);
     }
 
     /**
@@ -65,11 +63,14 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method creates the order summary of the customer.
      *
-     * @param price total price of the purchase.
+     * @param price           total price of the purchase.
+     * @param addWhippedCream a boolean parameter that tells if the customer wants whipped cream or not on their coffee.
+     * @param addChocolate    a boolean parameter that tells if the customer wants chocolate or not on their coffee.
      * @return a string that contains the order summary.
      */
-    private String createSummary(int price) {
-        String orderSummary = "Name: Vincent\n" +"Quantity: " + numberOfCoffees + "\nAdd whipped cream? " + hasWhippedCream + "\nPrice: $" + price + "\nThank you!";
+    private String createSummary(int price, boolean addWhippedCream, boolean addChocolate) {
+        String orderSummary = "Name: Vincent\n" + "Add whipped cream? " + addWhippedCream + "\nAdd chocolate? " + addChocolate +
+                "\nQuantity: " + numberOfCoffees + "\nPrice: $" + price + "\nThank you!";
         return orderSummary;
     }
 
