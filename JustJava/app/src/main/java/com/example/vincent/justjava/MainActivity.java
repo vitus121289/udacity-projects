@@ -4,6 +4,7 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -11,6 +12,7 @@ import org.w3c.dom.Text;
 public class MainActivity extends AppCompatActivity {
 
     int numberOfCoffees = 0;
+    boolean hasWhippedCream = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * This method determines if the checkbox for the whipped cream is clicked or not.
+     */
+    public void onCheckboxClicked(View v) {
+        hasWhippedCream = ((CheckBox) v).isChecked();
+    }
+
+    /**
      * This method calculates the total price of the purchase.
      *
      * @return the total price of the purchase.
@@ -60,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
      * @return a string that contains the order summary.
      */
     private String createSummary(int price) {
-        String orderSummary = "Name: Vincent\n" + "Price: $" + price + "\nThank you!";
+        String orderSummary = "Name: Vincent\n" + "Add whipped cream? " + hasWhippedCream + "\nPrice: $" + price + "\nThank you!";
         return orderSummary;
     }
 
