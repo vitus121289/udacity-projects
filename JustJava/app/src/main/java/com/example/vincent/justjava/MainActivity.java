@@ -1,5 +1,6 @@
 package com.example.vincent.justjava;
 
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
      * This method takes the order of the customer.
      */
     public void placeOrder(View v) {
-        int totalPrice = 0;
-        totalPrice = calculatePrice();
-        displayOrderSummary(totalPrice);
+        int totalPrice = calculatePrice();
+        String orderSummary = createSummary(totalPrice);
+        displayOrderSummary(orderSummary);
     }
 
     /**
@@ -50,6 +51,17 @@ public class MainActivity extends AppCompatActivity {
     private int calculatePrice() {
         int pricePerCup = 5;
         return numberOfCoffees * pricePerCup;
+    }
+
+    /**
+     * This method creates the order summary of the customer.
+     *
+     * @param price total price of the purchase.
+     * @return a string that contains the order summary.
+     */
+    private String createSummary(int price) {
+        String orderSummary = "Name: Vincent\n" + "Price: $" + price + "\nThank you!";
+        return orderSummary;
     }
 
     /**
@@ -65,10 +77,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method displays the summary of the customer's order.
      *
-     * @param price total price calculated by the method calculatePrice().
+     * @param orderSummary is the summary of order created by the method createSummary().
      */
-    private void displayOrderSummary(int price) {
+    private void displayOrderSummary(String orderSummary) {
         TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText("$" + price);
+        orderSummaryTextView.setText(orderSummary);
     }
 }
