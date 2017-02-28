@@ -144,6 +144,12 @@ public class MainActivity extends AppCompatActivity {
         orderSummaryTextView.setText(orderSummary);
     }
 
+    /**
+     * This method opens an available email app in the device and populates the subject and the message body fields.
+     *
+     * @param orderSummary the order summary created by the createSummary() method.
+     * @param customerName name of the customer which was obtained from the input field of the app.
+     */
     public void composeEmail(String orderSummary, String customerName) {
 
         String subject = "JustJava order for " + customerName;
