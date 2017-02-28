@@ -1,6 +1,8 @@
 package com.example.vincent.justjava;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -81,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
         int totalPrice = calculatePrice(addWhippedCream, addChocolate);
         String orderSummary = createSummary(totalPrice, addWhippedCream, addChocolate, customerName);
-        displayOrderSummary(orderSummary);
+//        displayOrderSummary(orderSummary);
+        composeEmail(orderSummary, customerName);
     }
 
     /**
@@ -139,5 +142,18 @@ public class MainActivity extends AppCompatActivity {
     private void displayOrderSummary(String orderSummary) {
         TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
         orderSummaryTextView.setText(orderSummary);
+    }
+
+    public void composeEmail(String orderSummary, String customerName) {
+
+        String subject = "JustJava order for " + customerName;
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, orderSummary);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 }
