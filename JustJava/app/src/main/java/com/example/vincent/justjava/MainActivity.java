@@ -2,8 +2,8 @@ package com.example.vincent.justjava;
 
 import android.content.Context;
 import android.content.Intent;
+import java.text.NumberFormat;
 import android.net.Uri;
-import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         orderSummary += "\n" + getString(R.string.order_summary_add_whipped_cream, addWhippedCream);
         orderSummary += "\n" + getString(R.string.order_summary_add_chocolate, addChocolate);
         orderSummary += "\n" + getString(R.string.order_summary_quantity, numberOfCoffees);
-        orderSummary += "\n" + getString(R.string.order_summary_total_price, price);
+        orderSummary += "\n" + getString(R.string.order_summary_total_price, NumberFormat.getCurrencyInstance().format(price));
         orderSummary += "\n" + getString(R.string.order_summary_thank_you);
         return orderSummary;
     }
