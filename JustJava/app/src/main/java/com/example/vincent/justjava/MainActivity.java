@@ -118,8 +118,12 @@ public class MainActivity extends AppCompatActivity {
      * @return a string that contains the order summary.
      */
     private String createSummary(int price, boolean addWhippedCream, boolean addChocolate, String customerName) {
-        String orderSummary = "Name: " + customerName + "\nAdd whipped cream? " + addWhippedCream + "\nAdd chocolate? " + addChocolate +
-                "\nQuantity: " + numberOfCoffees + "\nPrice: $" + price + "\nThank you!";
+        String orderSummary = getString(R.string.order_summary_customer_name, customerName);
+        orderSummary += "\n" + getString(R.string.order_summary_add_whipped_cream, addWhippedCream);
+        orderSummary += "\n" + getString(R.string.order_summary_add_chocolate, addChocolate);
+        orderSummary += "\n" + getString(R.string.order_summary_quantity, numberOfCoffees);
+        orderSummary += "\n" + getString(R.string.order_summary_total_price, price);
+        orderSummary += "\n" + getString(R.string.order_summary_thank_you);
         return orderSummary;
     }
 
@@ -140,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
      * @param customerName name of the customer which was obtained from the input field of the app.
      */
     public void composeEmail(String orderSummary, String customerName) {
-
         String subject = "JustJava order for " + customerName;
 
         Intent intent = new Intent(Intent.ACTION_SENDTO);
