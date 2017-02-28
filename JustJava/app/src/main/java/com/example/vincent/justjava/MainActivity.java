@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
         int totalPrice = calculatePrice(addWhippedCream, addChocolate);
         String orderSummary = createSummary(totalPrice, addWhippedCream, addChocolate, customerName);
-//        displayOrderSummary(orderSummary);
         composeEmail(orderSummary, customerName);
     }
 
@@ -132,16 +131,6 @@ public class MainActivity extends AppCompatActivity {
     private void displayQuantity(int numberOfCoffees) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + numberOfCoffees);
-    }
-
-    /**
-     * This method displays the summary of the customer's order.
-     *
-     * @param orderSummary is the summary of order created by the method createSummary().
-     */
-    private void displayOrderSummary(String orderSummary) {
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(orderSummary);
     }
 
     /**
