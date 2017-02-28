@@ -1,5 +1,6 @@
 package com.example.vincent.justjava;
 
+import android.content.Context;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,33 +8,57 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    int numberOfCoffees = 0;
+    int numberOfCoffees = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+        quantityTextView.setText("" + numberOfCoffees);
     }
 
     /**
      * This method increases the number of coffees that the customer wants to order.
+     * Also prohibits the customer to input a quantity more than 100.
      */
     public void addQuantity(View v) {
-        numberOfCoffees = numberOfCoffees + 1;
-        displayQuantity(numberOfCoffees);
+        if (numberOfCoffees < 100) {
+            numberOfCoffees = numberOfCoffees + 1;
+            displayQuantity(numberOfCoffees);
+        } else {
+            Context context = getApplicationContext();
+            CharSequence warnOverQuantity = "You may not order more than 100 cups of coffee.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, warnOverQuantity, duration);
+            toast.show();
+        }
     }
 
     /**
      * This method decreases the number of coffees that the customer wants to order.
+     * Also prohibits the customer to input a quantity less than 1.
      */
     public void subtractQuantity(View v) {
-        numberOfCoffees = numberOfCoffees - 1;
-        displayQuantity(numberOfCoffees);
+        if (numberOfCoffees > 1) {
+            numberOfCoffees = numberOfCoffees - 1;
+            displayQuantity(numberOfCoffees);
+        } else {
+            Context context = getApplicationContext();
+            CharSequence warnUnderQuantity = "You may not order less than 1 cup of coffee.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, warnUnderQuantity, duration);
+            toast.show();
+        }
     }
 
     /**
@@ -54,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         CheckBox hasChocolate = (CheckBox) findViewById(R.id.chocolate_checkbox);
         boolean addChocolate = hasChocolate.isChecked();
 
-        int totalPrice = calculatePrice();
+        int totalPrice = calculatePrice(addWhippedCream, addChocolate);
         String orderSummary = createSummary(totalPrice, addWhippedCream, addChocolate, customerName);
         displayOrderSummary(orderSummary);
     }
@@ -62,11 +87,23 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method calculates the total price of the purchase.
      *
+     * @param addWhippedCream a boolean variable that tells if the customer requested for whipped cream as a topping for their coffee.
+     * @param addChocolate    a boolean variable that tells if the customer requested for chocolate as a topping for their coffee.
      * @return the total price of the purchase.
      */
-    private int calculatePrice() {
+    private int calculatePrice(boolean addWhippedCream, boolean addChocolate) {
         int pricePerCup = 5;
-        return numberOfCoffees * pricePerCup;
+        int addToppings = 0;
+
+        if (addWhippedCream) {
+            addToppings = addToppings + 1;
+        }
+
+        if (addChocolate) {
+            addToppings = addToppings + 2;
+        }
+
+        return numberOfCoffees * (pricePerCup + addToppings);
     }
 
     /**
